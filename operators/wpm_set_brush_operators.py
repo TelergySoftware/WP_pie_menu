@@ -1,3 +1,5 @@
+from email.policy import default
+import re
 import bpy
 
 
@@ -10,95 +12,64 @@ class WPM_OT_Base_Operator(bpy.types.Operator):
         return is_weight_paint and is_view3d
  
 
-class WPM_OT_Set_Brush_Draw(WPM_OT_Base_Operator, bpy.types.Operator):
-    bl_idname = "wpm.set_brush_draw"
-    bl_label = "Set Draw"
+class WPM_OT_Set_Brush(WPM_OT_Base_Operator):
+    bl_idname = "wpm.set_brush"
+    bl_label = "Set Brush"
     bl_options = {'REGISTER', 'UNDO'}
     
-    def execute(self, context):
-        # Set brush to draw mode
-        context.tool_settings.weight_paint.brush = bpy.data.brushes['Draw']
-        return {'FINISHED'}
-
-
-class WPM_OT_Set_Brush_Add(WPM_OT_Base_Operator):
-    """Set brush to add mode"""
-    bl_idname = "wpm.set_brush_add"
-    bl_label = "Set Add"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    def execute(self, context):
-        # Set brush to add mode
-        context.tool_settings.weight_paint.brush = bpy.data.brushes['Add']
-        return {'FINISHED'}
-
-
-class WPM_OT_Set_Brush_Subtract(WPM_OT_Base_Operator):
-    """Set brush to subtract mode"""
-    bl_idname = "wpm.set_brush_subtract"
-    bl_label = "Set Subtract"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    def execute(self, context):
-        # Set brush to subtract mode
-        context.tool_settings.weight_paint.brush = bpy.data.brushes['Subtract']
-        return {'FINISHED'}
-
-class WPM_OT_Set_Brush_Multiply(WPM_OT_Base_Operator):
-    """Set brush to multiply mode"""
-    bl_idname = "wpm.set_brush_multiply"
-    bl_label = "Set Multiply"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    def execute(self, context):
-        # Set brush to multiply mode
-        context.tool_settings.weight_paint.brush = bpy.data.brushes['Multiply']
-        return {'FINISHED'}
-
-
-class WPM_OT_Set_Brush_Lighten(WPM_OT_Base_Operator):
-    """Set brush to lighten mode"""
-    bl_idname = "wpm.set_brush_lighten"
-    bl_label = "Set Lighten"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    def execute(self, context):
-        # Set brush to lighten mode
-        context.tool_settings.weight_paint.brush = bpy.data.brushes['Lighten']
-        return {'FINISHED'}
-
-
-class WPM_OT_Set_Brush_Darken(WPM_OT_Base_Operator):
-    """Set brush to darken mode"""
-    bl_idname = "wpm.set_brush_darken"
-    bl_label = "Set Darken"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    def execute(self, context):
-        # Set brush to darken mode
-        context.tool_settings.weight_paint.brush = bpy.data.brushes['Darken']
-        return {'FINISHED'}
+    brush: bpy.props.StringProperty(default="Draw")
     
-
-class WPM_OT_Set_Brush_Blur(WPM_OT_Base_Operator):
-    """Set brush to Blur"""
-    bl_idname = "wpm.set_brush_blur"
-    bl_label = "Set Blur"
-    bl_options = {'REGISTER', 'UNDO'}
-
     def execute(self, context):
-        # Set brush to Blur
-        context.tool_settings.weight_paint.brush = bpy.data.brushes['Blur']
+        # Set brush
+        context.tool_settings.weight_paint.brush = bpy.data.brushes[self.brush]
         return {'FINISHED'}
 
-
-class WPM_OT_Set_Brush_Average(WPM_OT_Base_Operator):
-    """Set brush to Average"""
-    bl_idname = "wpm.set_brush_average"
-    bl_label = "Set Average"
+class WPM_OT_Reset_Brushes(WPM_OT_Base_Operator):
+    """Reset all brushes to default"""
+    bl_idname = "wpm.reset_brushes"
+    bl_label = "Reset Brushes"
     bl_options = {'REGISTER', 'UNDO'}
+    
+    @classmethod
+    def poll(cls, context):
+        is_weight_paint = context.mode == 'PAINT_WEIGHT'
+        is_view3d = context.area.type == 'VIEW_3D'
+        return is_weight_paint and is_view3d
 
     def execute(self, context):
-        # Set brush to Average
-        context.tool_settings.weight_paint.brush = bpy.data.brushes['Average']
+        # Reset all brushes to default
+        # Get the CollectionGroup of Brushes wpm_brushes
+        brushes = context.scene.wpm_brushes
+        
+        # Clear the collection
+        brushes.clear()
+        # Add the default brushes
+        for _ in range(8):
+            brushes.add()
+        
+        brushes[0].name = 'Draw'
+        brushes[0].icon = 'GREASEPENCIL'
+        brushes[0].brush = bpy.data.brushes['Draw']
+        brushes[1].name = 'Add'
+        brushes[1].icon = 'ADD'
+        brushes[1].brush = bpy.data.brushes['Add']
+        brushes[2].name = 'Blur'
+        brushes[2].icon = 'MATFLUID'
+        brushes[2].brush = bpy.data.brushes['Blur']
+        brushes[3].name = 'Subtract'
+        brushes[3].icon = 'REMOVE'
+        brushes[3].brush = bpy.data.brushes['Subtract']
+        brushes[4].name = 'Darken'
+        brushes[4].icon = 'RADIOBUT_OFF'
+        brushes[4].brush = bpy.data.brushes['Darken']
+        brushes[5].name = 'Lighten'
+        brushes[5].icon = 'RADIOBUT_ON'
+        brushes[5].brush = bpy.data.brushes['Lighten']
+        brushes[6].name = 'Multiply'
+        brushes[6].icon = 'PANEL_CLOSE'
+        brushes[6].brush = bpy.data.brushes['Multiply']
+        brushes[7].name = 'Average'
+        brushes[7].icon = 'CLIPUV_HLT'
+        brushes[7].brush = bpy.data.brushes['Average']
+        
         return {'FINISHED'}

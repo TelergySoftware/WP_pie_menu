@@ -19,11 +19,15 @@ After installing the addon, you can use it by pressing the **D** key on your key
 - **Blur**: This will set the current brush to Blur.
 - **Average**: This will set the current brush to Average.
 
-The shortcut can be changed in the keymap preferences under the 3D View tab.
+The quick options Piemenu can be accessed by pressing the **X** key on your keyboard. At the moment, it only has the toggle bone visibility option.
+
+The shortcuts can be changed in the keymap preferences under the 3D View tab.
+
+In the WPM 3D View Panel, you can now change the order of the brushes in the pie menu and also remove them. For now, the add brush option only adds the Draw brush, so we suggest not using the remove or add brush buttons yet.
 
 ## Future plans
 
-- Add a menu to let the user choose the brushes and the order in the pie menu.
+- Let the user choose the brushes in the pie menu.
 - Add another pie menu to control the current brush properties.
 
 ## Credits
