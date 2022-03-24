@@ -14,7 +14,7 @@
 import bpy
 
 # Import all UI classes
-from .ui import WPM_MT_Pie_Menu, WPM_MT_Options_Pie_Menu
+from .ui import WPM_MT_Pie_Menu, WPM_MT_Brush_Options_Pie_Menu, WPM_MT_Options_Pie_Menu
 from .ui import WPM_PT_Main_Panel, WPM_PT_Brushes_Subpanel, WPM_UL_Brushes_List
 # Import all operator classes
 from .operators import (
@@ -36,6 +36,7 @@ from .properties import WPM_Properties, WPM_Brushes_Properties
 CLASSES_TO_REGISTER = [
     # UI classes
     WPM_MT_Pie_Menu,
+    WPM_MT_Brush_Options_Pie_Menu,
     WPM_MT_Options_Pie_Menu,
     WPM_PT_Main_Panel,
     WPM_PT_Brushes_Subpanel,
@@ -56,9 +57,9 @@ CLASSES_TO_REGISTER = [
 bl_info = {
     "name" : "Weight Paint Pie Menu",
     "author" : "Telergy Studio",
-    "description" : "",
+    "description" : """A bundle of tools to make Weight Painting more efficient.""",
     "blender" : (3, 0, 0),
-    "version" : (0, 0, 1),
+    "version" : (1, 0, 0),
     "location" : "",
     "warning" : "",
     "category" : "Generic"
@@ -84,6 +85,12 @@ def register():
     # Add new Keymap items to call the WPM_MT_Pie_Menu
     kmi = km.keymap_items.new('wm.call_menu_pie', 'D', 'PRESS')
     kmi.properties.name = 'WPM_MT_Pie_Menu'
+    kmi.active = True
+    keymaps.append((km, kmi))
+    
+    km = wm.keyconfigs.addon.keymaps.new(name='3D View', space_type='VIEW_3D')
+    kmi = km.keymap_items.new('wm.call_menu_pie', 'D', 'PRESS', shift=True)
+    kmi.properties.name = 'WPM_MT_Brush_Options_Pie_Menu'
     kmi.active = True
     keymaps.append((km, kmi))
     

@@ -56,6 +56,7 @@ class WPM_OT_Move_Brush_Up(bpy.types.Operator):
         index = context.scene.wpm_brushes_index
         if index > 0:
             brushes[index].name, brushes[index - 1].name = brushes[index - 1].name, brushes[index].name
+            brushes[index].icon, brushes[index - 1].icon = brushes[index - 1].icon, brushes[index].icon
             brushes[index].brush, brushes[index - 1].brush = brushes[index - 1].brush, brushes[index].brush
             context.scene.wpm_brushes_index = index - 1
         return {'FINISHED'}
@@ -77,6 +78,7 @@ class WPM_OT_Move_Brush_Down(bpy.types.Operator):
         index = context.scene.wpm_brushes_index
         if index < len(brushes) - 1:
             brushes[index].name, brushes[index + 1].name = brushes[index + 1].name, brushes[index].name
+            brushes[index].icon, brushes[index + 1].icon = brushes[index + 1].icon, brushes[index].icon
             brushes[index].brush, brushes[index + 1].brush = brushes[index + 1].brush, brushes[index].brush
             context.scene.wpm_brushes_index = index + 1
         return {'FINISHED'}

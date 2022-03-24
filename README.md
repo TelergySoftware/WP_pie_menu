@@ -19,16 +19,29 @@ After installing the addon, you can use it by pressing the **D** key on your key
 - **Blur**: This will set the current brush to Blur.
 - **Average**: This will set the current brush to Average.
 
-The quick options Piemenu can be accessed by pressing the **X** key on your keyboard. At the moment, it only has the toggle bone visibility option.
+To access brush settings, you can use the **SHIFT + D** key combination. It will open a pie menu with the following options:
+
+- **Weight**: This will set the weight value.
+- **Strength**: This will set the strength value.
+- **Accumulate**: This will toggle the accumulate option.
+- **Front Face**: This will toggle the front face option.
+
+The quick options Piemenu can be accessed by pressing the **X** key on your keyboard. It will open a pie menu with the following options:
+
+- **Bone Visibility**: This will toggle the bones visibility. **Note:** Remember to make the bones visible again after using this option.
+- **Auto Normalize**: This will toggle the auto normalize option.
+- **Multi Paint**: This will toggle the multi paint option.
+- **Mirror Vertex Groups**: This will toggle the mirror vertex groups option.
+- **Mirror X**: This will toggle the mirror X option. **Note:** Only mirror X is available for now.
+- **Mirror Topology**: This will toggle the mirror topology option.
 
 The shortcuts can be changed in the keymap preferences under the 3D View tab.
 
-In the WPM 3D View Panel, you can now change the order of the brushes in the pie menu and also remove them. For now, the add brush option only adds the Draw brush, so we suggest not using the remove or add brush buttons yet.
+In the WPM 3D View Panel, you can now change the order of the brushes in the pie menu and also remove them. You can also add brushes and change the current selected brush on the list by changing the brush shown in the Brush option right bellow the panel.
 
 ## Future plans
 
-- Let the user choose the brushes in the pie menu.
-- Add another pie menu to control the current brush properties.
+- Get feedback from users to improve the addon.
 
 ## Credits
 
