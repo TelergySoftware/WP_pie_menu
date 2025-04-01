@@ -6,8 +6,9 @@ class WPM_PT_Base_Panel(bpy.types.Panel):
     bl_region_type = 'UI'
     bl_category = 'WPM'
     
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        # Ensure the brushes list is initialized
         brushes = bpy.context.scene.wpm_brushes
         if len(brushes) == 0:
             bpy.ops.wpm.reset_brushes()

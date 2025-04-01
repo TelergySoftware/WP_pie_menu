@@ -7,8 +7,9 @@ class WPM_MT_Options_Pie_Menu(bpy.types.Menu):
     bl_idname = "WPM_MT_Options_Pie_Menu"
     bl_label = "WPM Options"
     
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        # Ensure the brushes list is initialized
         brushes = bpy.context.scene.wpm_brushes
         if len(brushes) == 0:
             bpy.ops.wpm.reset_brushes()
@@ -46,8 +47,9 @@ class WPM_MT_Brush_Options_Pie_Menu(bpy.types.Menu):
     bl_idname = "WPM_MT_Brush_Options_Pie_Menu"
     bl_label = "WPM Brush Options"
     
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        # Ensure the brushes list is initialized
         brushes = bpy.context.scene.wpm_brushes
         if len(brushes) == 0:
             bpy.ops.wpm.reset_brushes()

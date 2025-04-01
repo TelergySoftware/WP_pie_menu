@@ -5,8 +5,9 @@ class WPM_MT_Pie_Menu(bpy.types.Menu):
     bl_idname = "WPM_MT_Pie_Menu"
     bl_label = "WPM Brushes"
     
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        # Ensure the brushes list is initialized
         brushes = bpy.context.scene.wpm_brushes
         if len(brushes) == 0:
             bpy.ops.wpm.reset_brushes()
